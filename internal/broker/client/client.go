@@ -8,6 +8,10 @@ type (
 	}
 )
 
-func Broadcast(e net.Event) {
+func (c *Client) BroadcastAll(e net.Event) {
+	// ...
+}
 
+func (c *Client) BroadcastSingle(e net.Event) {
+	// ...
 }
