@@ -9,9 +9,15 @@ type (
 )
 
 func (c *Client) BroadcastAll(e net.Event) {
-	// ...
+	c.Broker.Broadcast(e)
 }
 
-func (c *Client) BroadcastSingle(e net.Event) {
-	// ...
+func (c *Client) BroadcastSingle(id string, e net.Event) error {
+	err := c.Broker.Send(id, e)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
