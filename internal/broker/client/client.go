@@ -4,9 +4,21 @@ import net "github.com/subchord/go-sse"
 
 type (
 	Client struct {
-		Broker net.Broker
+		Broker *net.Broker
 	}
 )
+
+func (c *Client) Connect(baseURL string) error {
+	con, err := c.Broker.Connect(baseURL, nil, nil)
+
+	if err != nil {
+		return err
+	}
+
+	<-con.Done()
+
+	return nil
+}
 
 func (c *Client) BroadcastAll(e net.Event) {
 	c.Broker.Broadcast(e)
