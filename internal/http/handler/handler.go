@@ -15,19 +15,21 @@ type Handler struct {
 	Client *client.Client
 }
 
-func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
+func (h Handler) ClientConnect(writer http.ResponseWriter, request *http.Request) {
 	err := h.Client.Connect(strconv.FormatInt(time.Now().UnixMilli(), 10), writer, request)
 	if err != nil {
 		log.Println(err)
 
 		return
 	}
+}
 
+func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 	var r struct {
 		Data string `json:"data"`
 	}
 
-	err = json.NewDecoder(request.Body).Decode(&r)
+	err := json.NewDecoder(request.Body).Decode(&r)
 	if err != nil {
 		log.Println(err)
 
@@ -37,6 +39,7 @@ func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 	h.Client.BroadcastAll(event.New(strconv.FormatInt(time.Now().UnixMilli(), 10), "event", r.Data))
 
 	request.Response.StatusCode = http.StatusOK
+	_, _ = writer.Write([]byte("Event sent"))
 }
 
 func (h Handler) EventHistory() {
