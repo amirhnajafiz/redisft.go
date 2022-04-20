@@ -42,6 +42,30 @@ func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 	_, _ = writer.Write([]byte("Event sent"))
 }
 
+func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *http.Request) {
+	var r struct {
+		Data      string `json:"data"`
+		Reference string `json:"reference"`
+	}
+
+	err := json.NewDecoder(request.Body).Decode(&r)
+	if err != nil {
+		log.Println(err)
+
+		return
+	}
+
+	err = h.Client.BroadcastSingle(r.Reference, event.New(strconv.FormatInt(time.Now().UnixMilli(), 10), "event", r.Data))
+	if err != nil {
+		log.Println(err)
+
+		return
+	}
+
+	request.Response.StatusCode = http.StatusOK
+	_, _ = writer.Write([]byte("Event sent"))
+}
+
 func (h Handler) EventHistory() {
 	// history
 }
