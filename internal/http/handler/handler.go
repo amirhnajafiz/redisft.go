@@ -33,7 +33,8 @@ func (h Handler) ClientConnect(writer http.ResponseWriter, request *http.Request
 
 func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 	var r struct {
-		Data string `json:"data"`
+		Event string `json:"event"`
+		Data  string `json:"data"`
 	}
 
 	err := json.NewDecoder(request.Body).Decode(&r)
@@ -46,7 +47,7 @@ func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	h.Client.BroadcastAll(event.New(generateUniqueId(), "event", r.Data))
+	h.Client.BroadcastAll(event.New(generateUniqueId(), r.Event, r.Data))
 
 	request.Response.StatusCode = http.StatusOK
 	_, _ = writer.Write([]byte(SuccessfulMessage))
@@ -54,6 +55,7 @@ func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 
 func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *http.Request) {
 	var r struct {
+		Event     string `json:"event"`
 		Data      string `json:"data"`
 		Reference string `json:"reference"`
 	}
@@ -68,7 +70,7 @@ func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *ht
 		return
 	}
 
-	err = h.Client.BroadcastSingle(r.Reference, event.New(generateUniqueId(), "event", r.Data))
+	err = h.Client.BroadcastSingle(r.Reference, event.New(generateUniqueId(), r.Event, r.Data))
 	if err != nil {
 		log.Println(err)
 
