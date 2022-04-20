@@ -1,4 +1,4 @@
-package app
+package main
 
 import (
 	"log"
@@ -6,7 +6,7 @@ import (
 	net "github.com/subchord/go-sse"
 )
 
-func NewFeeder() {
+func main() {
 	feed, err := net.ConnectWithSSEFeed("http://localhost:8080/connect", nil)
 	if err != nil {
 		log.Fatal(err)
