@@ -1,6 +1,10 @@
 package client
 
-import net "github.com/subchord/go-sse"
+import (
+	"net/http"
+
+	net "github.com/subchord/go-sse"
+)
 
 type (
 	Client struct {
@@ -8,8 +12,8 @@ type (
 	}
 )
 
-func (c *Client) Connect(baseURL string) error {
-	con, err := c.Broker.Connect(baseURL, nil, nil)
+func (c *Client) Connect(baseURL string, w http.ResponseWriter, r *http.Request) error {
+	con, err := c.Broker.Connect(baseURL, w, r)
 
 	if err != nil {
 		return err
