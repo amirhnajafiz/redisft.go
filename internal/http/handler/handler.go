@@ -24,6 +24,9 @@ func (h Handler) ClientConnect(writer http.ResponseWriter, request *http.Request
 	if err != nil {
 		log.Println(err)
 
+		request.Response.StatusCode = http.StatusInternalServerError
+		_, _ = writer.Write([]byte(FailedMessage))
+
 		return
 	}
 }
@@ -36,6 +39,9 @@ func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 	err := json.NewDecoder(request.Body).Decode(&r)
 	if err != nil {
 		log.Println(err)
+
+		request.Response.StatusCode = http.StatusInternalServerError
+		_, _ = writer.Write([]byte(FailedMessage))
 
 		return
 	}
@@ -56,12 +62,18 @@ func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *ht
 	if err != nil {
 		log.Println(err)
 
+		request.Response.StatusCode = http.StatusInternalServerError
+		_, _ = writer.Write([]byte(FailedMessage))
+
 		return
 	}
 
 	err = h.Client.BroadcastSingle(r.Reference, event.New(generateUniqueId(), "event", r.Data))
 	if err != nil {
 		log.Println(err)
+
+		request.Response.StatusCode = http.StatusInternalServerError
+		_, _ = writer.Write([]byte(FailedMessage))
 
 		return
 	}
