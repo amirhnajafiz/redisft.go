@@ -91,6 +91,17 @@ func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *ht
 	_, _ = writer.Write([]byte(SuccessfulMessage))
 }
 
-func (h Handler) EventHistory() {
-	// history
+func (h Handler) EventHistory(writer http.ResponseWriter, _ *http.Request) {
+	writer.WriteHeader(http.StatusOK)
+	writer.Header().Set("Content-Type", "application/json")
+
+	err := json.NewEncoder(writer).Encode(cache.Pull())
+	if err != nil {
+		log.Println(err)
+
+		writer.WriteHeader(http.StatusInternalServerError)
+		_, _ = writer.Write([]byte(FailedMessage))
+
+		return
+	}
 }
