@@ -6,11 +6,13 @@ import (
 	"net/http"
 	"reflect"
 
+	"github.com/amirhnajafiz/event-man/internal/cache"
 	"github.com/amirhnajafiz/event-man/internal/cmd/server"
 	"github.com/amirhnajafiz/event-man/pkg/logger"
 )
 
 func Execute() {
+	cache.Init()
 	server.New()
 
 	httpMux := reflect.ValueOf(http.DefaultServeMux).Elem()

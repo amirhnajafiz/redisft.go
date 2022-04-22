@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/amirhnajafiz/event-man/internal/broker/client"
+	"github.com/amirhnajafiz/event-man/internal/cache"
 	"github.com/amirhnajafiz/event-man/internal/event"
 )
 
@@ -47,7 +48,10 @@ func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	h.Client.BroadcastAll(event.New(generateUniqueId(), r.Event, r.Data))
+	e := event.New(generateUniqueId(), r.Event, r.Data)
+
+	h.Client.BroadcastAll(e)
+	cache.Put(e)
 
 	writer.WriteHeader(http.StatusOK)
 	_, _ = writer.Write([]byte(SuccessfulMessage))
@@ -70,7 +74,8 @@ func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *ht
 		return
 	}
 
-	err = h.Client.BroadcastSingle(r.Reference, event.New(generateUniqueId(), r.Event, r.Data))
+	e := event.New(generateUniqueId(), r.Event, r.Data)
+	err = h.Client.BroadcastSingle(r.Reference, e)
 	if err != nil {
 		log.Println(err)
 
@@ -79,6 +84,8 @@ func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *ht
 
 		return
 	}
+
+	cache.Put(e)
 
 	writer.WriteHeader(http.StatusOK)
 	_, _ = writer.Write([]byte(SuccessfulMessage))
