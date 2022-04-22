@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -10,5 +11,6 @@ import (
 func Execute() {
 	server.New()
 
+	fmt.Println("[Info] Listening on :8080")
 	log.Fatal(http.ListenAndServe(":8080", http.DefaultServeMux))
 }
