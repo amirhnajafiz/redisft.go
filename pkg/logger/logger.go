@@ -14,5 +14,5 @@ func Fatal(e error) {
 }
 
 func Info(s string, m string) {
-	fmt.Printf("[%s] %s", s, m)
+	fmt.Printf("[%s] %s\n", s, m)
 }
