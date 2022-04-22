@@ -18,4 +18,5 @@ func New() {
 	http.HandleFunc("/connect", h.ClientConnect)
 	http.HandleFunc("/push", h.PushEvent)
 	http.HandleFunc("/push/single", h.PushEventToSingleClient)
+	http.HandleFunc("/history", h.EventHistory)
 }
