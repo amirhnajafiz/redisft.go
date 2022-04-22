@@ -24,7 +24,7 @@ func (h Handler) ClientConnect(writer http.ResponseWriter, request *http.Request
 	if err != nil {
 		log.Println(err)
 
-		request.Response.StatusCode = http.StatusInternalServerError
+		writer.WriteHeader(http.StatusInternalServerError)
 		_, _ = writer.Write([]byte(FailedConnection))
 
 		return
@@ -41,7 +41,7 @@ func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		log.Println(err)
 
-		request.Response.StatusCode = http.StatusBadRequest
+		writer.WriteHeader(http.StatusBadRequest)
 		_, _ = writer.Write([]byte(BadRequest))
 
 		return
@@ -49,7 +49,7 @@ func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 
 	h.Client.BroadcastAll(event.New(generateUniqueId(), r.Event, r.Data))
 
-	request.Response.StatusCode = http.StatusOK
+	writer.WriteHeader(http.StatusOK)
 	_, _ = writer.Write([]byte(SuccessfulMessage))
 }
 
@@ -64,7 +64,7 @@ func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *ht
 	if err != nil {
 		log.Println(err)
 
-		request.Response.StatusCode = http.StatusBadRequest
+		writer.WriteHeader(http.StatusBadRequest)
 		_, _ = writer.Write([]byte(BadRequest))
 
 		return
@@ -74,13 +74,13 @@ func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *ht
 	if err != nil {
 		log.Println(err)
 
-		request.Response.StatusCode = http.StatusInternalServerError
+		writer.WriteHeader(http.StatusInternalServerError)
 		_, _ = writer.Write([]byte(FailedMessage))
 
 		return
 	}
 
-	request.Response.StatusCode = http.StatusOK
+	writer.WriteHeader(http.StatusOK)
 	_, _ = writer.Write([]byte(SuccessfulMessage))
 }
 
