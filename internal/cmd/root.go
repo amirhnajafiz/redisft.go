@@ -17,7 +17,7 @@ func Execute() {
 	finList := httpMux.FieldByIndex([]int{1})
 	fmt.Println("Routes:")
 	for _, key := range finList.MapKeys() {
-		logger.Info("ROUTE", fmt.Sprintf("\t 0.0.0.0:8080%s\n", key))
+		logger.Info("ROUTE", fmt.Sprintf("\t 0.0.0.0:8080%s", key))
 	}
 
 	logger.Info("INFO", "Listening on :8080")
