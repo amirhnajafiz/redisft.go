@@ -4,6 +4,10 @@ import net "github.com/subchord/go-sse"
 
 var store map[string]net.Event
 
+func Init() {
+	store = make(map[string]net.Event)
+}
+
 func Put(e net.Event) {
 	store[e.GetId()] = e
 }
