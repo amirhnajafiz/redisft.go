@@ -4,7 +4,7 @@ exec:
 
 # building the application
 build:
-	go build -o ./execute cmd/main.go
+	go build -o /execute cmd/main.go
 
 # create docker image
 docker-build:

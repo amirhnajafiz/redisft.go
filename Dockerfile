@@ -11,6 +11,6 @@ FROM alpine:latest
 
 WORKDIR /app/
 
-COPY --from=builder ./execute .
+COPY --from=builder /execute .
 
 ENTRYPOINT ["./execute"]
