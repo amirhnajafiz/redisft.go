@@ -8,7 +8,7 @@ build:
 
 # create docker image
 docker-build:
-	docker build -t amirhossein21/event-man
+	docker build . -t amirhossein21/event-man
 
 # docker push to docker hub
 docker-push:
