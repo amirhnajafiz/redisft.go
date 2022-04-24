@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: # docker hub image repository
+  repository: amirhossein21/event-man
   pullPolicy: IfNotPresent
   tag: "latest"
 
