@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+      - main
+    inputs:
+      username:
+        default: 'john-doe'
+        required: false
+        type: string
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test1
+        run: echo 'this is test1 ' + ${{ inputs.username }}
+      - name: Test2
+        run: echo 'this is test2'
