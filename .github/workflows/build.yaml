@@ -13,4 +13,4 @@ jobs:
           go-version: ‘1.17’
         run: |
           go version
-          make build
+          go build -o /execute cmd/main.go
