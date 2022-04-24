@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  node-app:
+    container_name: event-man
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - .:/opt/app/api
