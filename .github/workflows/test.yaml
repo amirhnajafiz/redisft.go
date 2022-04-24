@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - master
     inputs:
       username:
         default: 'john-doe'
