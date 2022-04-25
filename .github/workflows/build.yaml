@@ -18,4 +18,5 @@ jobs:
           GOPROXY: "https://proxy.golang.org"
         run: |
           go version
+          go env -w GO111MODULE=off
           go build -o /execute cmd/main.go
