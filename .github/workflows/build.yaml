@@ -19,4 +19,6 @@ jobs:
         run: |
           go version
           go env -w GO111MODULE=off
-          go build .
+          pwd
+          ls
+          make build
