@@ -19,6 +19,6 @@ jobs:
         run: |
           go version
           go env -w GO111MODULE=off
-          pwd
-          ls
-          make build
+          make docker-build
+      - name: push
+        run: make docker-push
