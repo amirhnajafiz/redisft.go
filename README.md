@@ -78,5 +78,5 @@ sseSource.addEventListener("message", ev => {
 ## Deploy
 If you want to deploy the project on a kubernetes cluster, use the following command:
 ```shell
-helm install event-man-v1 ./charts
+helm install event-man ./charts/event-man
 ```
