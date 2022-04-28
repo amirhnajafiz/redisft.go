@@ -1,24 +1,22 @@
+name: build test for event-man
+
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
+
   build:
-    name: build application
     runs-on: ubuntu-latest
     steps:
-      - name: set golang
+      - uses: actions/checkout@v2
+
+      - name: set up golang
         uses: actions/setup-go@v2
         with:
           go-version: 1.17
 
       - name: build
-        env:
-          GOPROXY: "https://proxy.golang.org"
-        run: |
-          go version
-          go env -w GO111MODULE=off
-          make docker-build
-      - name: push
-        run: make docker-push
+        run: go build -v ./...
