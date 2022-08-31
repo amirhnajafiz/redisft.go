@@ -8,7 +8,7 @@ import (
 
 	"github.com/amirhnajafiz/event-man/internal/cache"
 	"github.com/amirhnajafiz/event-man/internal/cmd/server"
-	"github.com/amirhnajafiz/event-man/pkg/logger"
+	"github.com/amirhnajafiz/event-man/internal/logger"
 )
 
 func Execute() {
