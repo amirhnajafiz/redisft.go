@@ -1,8 +1,9 @@
 package broker
 
 import (
-	"log"
+	"fmt"
 
+	"github.com/amirhnajafiz/event-man/internal/logger"
 	net "github.com/subchord/go-sse"
 )
 
@@ -15,5 +16,5 @@ func New() *net.Broker {
 }
 
 func DisconnectCallback(clientId string, sessionId string) {
-	log.Fatalf("[%s] Lost connection with ID: %s", sessionId, clientId)
+	logger.Fatal(fmt.Errorf("[%s] Lost connection with ID: %s", sessionId, clientId))
 }

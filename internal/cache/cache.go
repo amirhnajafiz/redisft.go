@@ -4,7 +4,7 @@ import net "github.com/subchord/go-sse"
 
 var store map[string]net.Event
 
-func Init() {
+func init() {
 	store = make(map[string]net.Event)
 }
 
