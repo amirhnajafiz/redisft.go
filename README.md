@@ -1,14 +1,32 @@
-# event-man
+<h1 align="center">
+Event Man
+</h1>
 
-Event man is an event publisher implemented with Golang.
-
-With event publisher, you can send events to your clients, and
-also you can check the events' history.
-
-Event man uses SSE protocol to create streams between clients
+Event man is an event publisher with SSE implemented with Golang. With event publisher, you can send events to your clients, and
+also you can check the events' history. Event man uses SSE protocol to create streams between clients
 and the main server.
 
-## Routes
+## How to use project?
+To run the project, clone the repository:
+```shell
+git clone https://github.com/amirhnajafiz/event-man.git
+cd event-man
+```
+
+### Golang
+Start using golang:
+```shell
+go run main.go
+```
+
+### Docker
+Start the project with docker:
+```shell
+docker build . -t event-man --platform linux/amd64
+docker run -p 8080:8080 event-man
+```
+
+### Routes
 Connect to event-man server:
 - URL: 0.0.0.0:8080/connect
 - Method: GET
@@ -27,18 +45,8 @@ Get events history:
 - URL: 0.0.0.0:8080/history
 - Method: GET
 
-## How to run?
-To run the project, clone the repository:
-```shell
-git clone https://github.com/amirhnajafiz/event-man.git
-```
-
-Then start the project with docker compose:
-```shell
-docker-compose up -d
-```
-
 ## Clients
+### Golang
 If you're using golang client, you can connect to the main server
 and receive the events:
 ```go
@@ -64,6 +72,7 @@ for {
 	}
 ```
 
+### PWA
 And for web-applications, with the following example you
 can connect to the event-man server and listen for events:
 ```js
@@ -78,5 +87,5 @@ sseSource.addEventListener("message", ev => {
 ## Deploy
 If you want to deploy the project on a kubernetes cluster, use the following command:
 ```shell
-helm install event-man ./charts/event-man
+helm install event-man charts/event-man
 ```
