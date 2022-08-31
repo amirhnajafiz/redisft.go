@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="assets/download.png" alt="logo" />
+</p>
+
 <h1 align="center">
 Event Man
 </h1>
