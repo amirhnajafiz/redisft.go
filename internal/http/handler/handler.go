@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -10,6 +9,7 @@ import (
 	"github.com/amirhnajafiz/event-man/internal/broker/client"
 	"github.com/amirhnajafiz/event-man/internal/cache"
 	"github.com/amirhnajafiz/event-man/internal/event"
+	"github.com/amirhnajafiz/event-man/internal/logger"
 )
 
 type Handler struct {
@@ -23,7 +23,7 @@ func generateUniqueId() string {
 func (h Handler) ClientConnect(writer http.ResponseWriter, request *http.Request) {
 	err := h.Client.Connect(strconv.FormatInt(time.Now().UnixMilli(), 10), writer, request)
 	if err != nil {
-		log.Println(err)
+		logger.Error(err)
 
 		writer.WriteHeader(http.StatusInternalServerError)
 		_, _ = writer.Write([]byte(FailedConnection))
@@ -40,7 +40,7 @@ func (h Handler) PushEvent(writer http.ResponseWriter, request *http.Request) {
 
 	err := json.NewDecoder(request.Body).Decode(&r)
 	if err != nil {
-		log.Println(err)
+		logger.Error(err)
 
 		writer.WriteHeader(http.StatusBadRequest)
 		_, _ = writer.Write([]byte(BadRequest))
@@ -66,7 +66,7 @@ func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *ht
 
 	err := json.NewDecoder(request.Body).Decode(&r)
 	if err != nil {
-		log.Println(err)
+		logger.Error(err)
 
 		writer.WriteHeader(http.StatusBadRequest)
 		_, _ = writer.Write([]byte(BadRequest))
@@ -75,9 +75,10 @@ func (h Handler) PushEventToSingleClient(writer http.ResponseWriter, request *ht
 	}
 
 	e := event.New(generateUniqueId(), r.Event, r.Data)
+
 	err = h.Client.BroadcastSingle(r.Reference, e)
 	if err != nil {
-		log.Println(err)
+		logger.Error(err)
 
 		writer.WriteHeader(http.StatusInternalServerError)
 		_, _ = writer.Write([]byte(FailedMessage))
@@ -97,7 +98,7 @@ func (h Handler) EventHistory(writer http.ResponseWriter, _ *http.Request) {
 
 	err := json.NewEncoder(writer).Encode(cache.Pull())
 	if err != nil {
-		log.Println(err)
+		logger.Error(err)
 
 		writer.WriteHeader(http.StatusInternalServerError)
 		_, _ = writer.Write([]byte(FailedMessage))
