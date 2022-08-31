@@ -5,7 +5,7 @@ WORKDIR /src/app/
 
 COPY . .
 
-RUN make build
+RUN go build -o ./execute
 
 FROM alpine:latest
 
