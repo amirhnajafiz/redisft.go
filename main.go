@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/amirhnajafiz/event-man/internal/cmd"
+	"github.com/amirhnajafiz/event-man/cmd"
 )
 
 func main() {
