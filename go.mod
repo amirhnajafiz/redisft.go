@@ -1,6 +1,6 @@
 module github.com/amirhnajafiz/event-man
 
-go 1.17
+go 1.19
 
 require github.com/subchord/go-sse v1.0.7
 
