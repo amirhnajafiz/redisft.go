@@ -3,7 +3,7 @@ package broker
 import (
 	"fmt"
 
-	"github.com/amirhnajafiz/event-man/internal/logger"
+	"github.com/amirhnajafiz/event-man/pkg/logger"
 	net "github.com/subchord/go-sse"
 )
 

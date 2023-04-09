@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"reflect"
 
+	"github.com/amirhnajafiz/event-man/cmd/server"
 	_ "github.com/amirhnajafiz/event-man/internal/cache"
-	"github.com/amirhnajafiz/event-man/internal/cmd/server"
-	"github.com/amirhnajafiz/event-man/internal/logger"
+	"github.com/amirhnajafiz/event-man/pkg/logger"
 )
 
 func Execute() {

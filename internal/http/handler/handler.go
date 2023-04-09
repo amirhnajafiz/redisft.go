@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/amirhnajafiz/event-man/internal/broker/client"
+	"github.com/amirhnajafiz/event-man/internal/broker/event"
 	"github.com/amirhnajafiz/event-man/internal/cache"
-	"github.com/amirhnajafiz/event-man/internal/event"
-	"github.com/amirhnajafiz/event-man/internal/logger"
+	"github.com/amirhnajafiz/event-man/pkg/logger"
 )
 
 type Handler struct {
