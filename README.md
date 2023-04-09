@@ -1,10 +1,4 @@
-<p align="center">
-    <img src="assets/download.png" alt="logo" />
-</p>
-
-<h1 align="center">
-Event Man
-</h1>
+# Event Man
 
 Event man is an event publisher with SSE implemented with Golang. With event publisher, you can send events to your clients, and
 also you can check the events' history. Event man uses SSE protocol to create streams between clients
