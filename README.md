@@ -1,6 +1,6 @@
 # Event Man
 
-Event man is an server send event (SSE) implemented with Golang. 
+Event man is an server sent event (SSE) implemented with Golang. 
 With this event publisher, you can send events to your clients, and
 also you can check the events' history. 
 Event man uses SSE design to create streams between clients.
