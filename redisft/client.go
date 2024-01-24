@@ -11,7 +11,7 @@ type client struct {
 	query *Query
 }
 
-func (c client) Do(query Query) error {
+func (c client) Do(query Query) *redis.Cmd {
 	ctx := context.Background()
 
 	c.query = &query
@@ -25,7 +25,7 @@ func (c client) Do(query Query) error {
 		return c.add(ctx)
 	}
 
-	return ErrTypeNotFound
+	return nil
 }
 
 func (c client) GetClient() *redis.Client {

@@ -1,5 +1,7 @@
 package redisft
 
+import "fmt"
+
 type Query struct {
 	Index  string
 	Params map[string]string
@@ -22,4 +24,8 @@ func (q Query) WithParams(params map[string]string) Query {
 	q.Params = params
 
 	return q
+}
+
+func (q Query) getCommand() string {
+	return fmt.Sprintf("FT.%s", q.Type)
 }
