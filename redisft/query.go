@@ -12,6 +12,10 @@ func NewQuery(queryType QueryType) Query {
 	}
 }
 
+func NewAddQuery() Query {
+
+}
+
 func (q Query) WithIndex(index string) Query {
 	q.index = index
 
