@@ -27,3 +27,7 @@ func (c client) Do(query Query) error {
 
 	return ErrTypeNotFound
 }
+
+func (c client) GetClient() *redis.Client {
+	return c.conn
+}
