@@ -2,7 +2,6 @@ package redisft
 
 import (
 	"context"
-	"errors"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -26,5 +25,5 @@ func (c client) Do(query Query) error {
 		return c.add(ctx)
 	}
 
-	return errors.New("query type not found")
+	return ErrTypeNotFound
 }
