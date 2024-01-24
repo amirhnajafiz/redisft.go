@@ -14,7 +14,10 @@ func main() {
 	})
 
 	ft := redisft.NewClientFromExistingConnection(rdb)
-	ft.Do(redisft.NewQuery(redisft.QueryCreate).
-		WithIndex("myindex"),
-	)
+
+	if err := ft.Do(redisft.NewQuery(redisft.QueryCreate).
+		WithIndex("myindex").WithParam("cindex", "TEXT"),
+	).Err(); err != nil {
+		panic(err)
+	}
 }
