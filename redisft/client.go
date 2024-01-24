@@ -16,7 +16,7 @@ func (c client) Do(query Query) *redis.Cmd {
 
 	c.query = &query
 
-	switch query.Type {
+	switch query.queryType {
 	case QuerySearch:
 		return c.search(ctx)
 	case QueryCreate:

@@ -1,31 +1,25 @@
 package redisft
 
-import "fmt"
-
 type Query struct {
-	Index  string
-	Params map[string]string
-	Type   QueryType
+	index     string
+	params    map[string]string
+	queryType QueryType
 }
 
 func NewQuery(queryType QueryType) Query {
 	return Query{
-		Type: queryType,
+		queryType: queryType,
 	}
 }
 
 func (q Query) WithIndex(index string) Query {
-	q.Index = index
+	q.index = index
 
 	return q
 }
 
-func (q Query) WithParams(params map[string]string) Query {
-	q.Params = params
+func (q Query) WithParam(key, value string) Query {
+	q.params[key] = value
 
 	return q
-}
-
-func (q Query) getCommand() string {
-	return fmt.Sprintf("FT.%s", q.Type)
 }

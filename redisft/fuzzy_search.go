@@ -8,13 +8,13 @@ import (
 
 func (c client) create(ctx context.Context) *redis.Cmd {
 	args := []string{
-		c.query.getCommand(),
-		c.query.Index,
+		"FT.CREATE",
+		c.query.index,
 		"SCHEMA",
 	}
 
-	for key := range c.query.Params {
-		args = append(args, key, c.query.Params[key])
+	for key := range c.query.params {
+		args = append(args, key, c.query.params[key])
 	}
 
 	return c.conn.Do(ctx, args)
@@ -22,12 +22,12 @@ func (c client) create(ctx context.Context) *redis.Cmd {
 
 func (c client) add(ctx context.Context) *redis.Cmd {
 	args := []string{
-		c.query.getCommand(),
-		c.query.Index,
+		"FT.ADD",
+		c.query.index,
 	}
 
-	for key := range c.query.Params {
-		args = append(args, key, c.query.Params[key])
+	for key := range c.query.params {
+		args = append(args, key, c.query.params[key])
 	}
 
 	return c.conn.Do(ctx, args)
@@ -35,9 +35,9 @@ func (c client) add(ctx context.Context) *redis.Cmd {
 
 func (c client) search(ctx context.Context) *redis.Cmd {
 	args := []string{
-		c.query.getCommand(),
-		c.query.Index,
-		c.query.Params["query"],
+		"FT.SEARCH",
+		c.query.index,
+		c.query.params["query"],
 		"FUZZY",
 	}
 
