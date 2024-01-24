@@ -2,7 +2,9 @@ package redisft
 
 import "github.com/redis/go-redis/v9"
 
-type Client interface{}
+type Client interface {
+	Do(query Query) error
+}
 
 func NewClient(options *redis.Options) Client {
 	rdb := redis.NewClient(options)
