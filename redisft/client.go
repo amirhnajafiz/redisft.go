@@ -2,6 +2,7 @@ package redisft
 
 import (
 	"context"
+	"errors"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -11,7 +12,7 @@ type client struct {
 	query *query
 }
 
-func (c client) Do(query query) *redis.Cmd {
+func (c client) Do(query query) (*redis.Cmd, error) {
 	ctx := context.Background()
 
 	c.query = &query
@@ -25,7 +26,7 @@ func (c client) Do(query query) *redis.Cmd {
 		return c.add(ctx)
 	}
 
-	return nil
+	return nil, errors.New("not enough parameters")
 }
 
 func (c client) GetClient() *redis.Client {
