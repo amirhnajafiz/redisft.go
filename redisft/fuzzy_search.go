@@ -2,7 +2,6 @@ package redisft
 
 import (
 	"context"
-	"errors"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -15,7 +14,7 @@ func (c client) create(ctx context.Context) (*redis.Cmd, error) {
 	}
 
 	if len(c.query.params) == 0 {
-		return nil, errors.New("not enough parameters")
+		return nil, ErrParamsNumber
 	}
 
 	for key := range c.query.params {
@@ -32,7 +31,7 @@ func (c client) add(ctx context.Context) (*redis.Cmd, error) {
 	}
 
 	if len(c.query.params) == 0 {
-		return nil, errors.New("not enough parameters")
+		return nil, ErrParamsNumber
 	}
 
 	for key := range c.query.params {
@@ -51,7 +50,7 @@ func (c client) search(ctx context.Context) (*redis.Cmd, error) {
 	}
 
 	if len(c.query.params) == 0 {
-		return nil, errors.New("not enough parameters")
+		return nil, ErrParamsNumber
 	}
 
 	return c.conn.Do(ctx, args), nil
