@@ -32,6 +32,6 @@ func (c client) Do(query builder) (*redis.Cmd, error) {
 	return nil, ErrQueryType
 }
 
-func (c client) GetClient() *redis.Client {
+func (c client) Client() *redis.Client {
 	return c.conn
 }
