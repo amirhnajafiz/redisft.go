@@ -16,11 +16,11 @@ func NewCreateQuery(index string) CreateQuery {
 	return newQuery(index, QueryCreate)
 }
 
-func NewSearchQuery(index string) CreateQuery {
+func NewSearchQuery(index string) SearchQuery {
 	return newQuery(index, QuerySearch)
 }
 
-func NewAddQuery(index string) CreateQuery {
+func NewAddQuery(index string) AddQuery {
 	return newQuery(index, QueryAdd)
 }
 
