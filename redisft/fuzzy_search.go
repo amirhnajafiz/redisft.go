@@ -13,6 +13,10 @@ func (c client) create(ctx context.Context) *redis.Cmd {
 		"SCHEMA",
 	}
 
+	if len(c.query.params) == 0 {
+		return nil
+	}
+
 	for key := range c.query.params {
 		args = append(args, key, c.query.params[key])
 	}
@@ -24,6 +28,10 @@ func (c client) add(ctx context.Context) *redis.Cmd {
 	args := []string{
 		"FT.ADD",
 		c.query.index,
+	}
+
+	if len(c.query.params) == 0 {
+		return nil
 	}
 
 	for key := range c.query.params {
@@ -39,6 +47,10 @@ func (c client) search(ctx context.Context) *redis.Cmd {
 		c.query.index,
 		c.query.params["query"],
 		"FUZZY",
+	}
+
+	if len(c.query.params) == 0 {
+		return nil
 	}
 
 	return c.conn.Do(ctx, args)
