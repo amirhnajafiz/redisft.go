@@ -15,7 +15,7 @@ func main() {
 
 	ft := redisft.NewClientFromExistingConnection(rdb)
 
-	if err := ft.Do(redisft.NewCreateQuery("default").AddField("cindex", "TEXT").Build()).Err(); err != nil {
+	if res, err := ft.Do(redisft.NewCreateQuery("default").AddField("cindex", redisft.FTText).Build()); err != nil || res.Err() != nil {
 		panic(err)
 	}
 }

@@ -15,7 +15,7 @@ func main() {
 
 	ft := redisft.NewClientFromExistingConnection(rdb)
 
-	if err := ft.Do(redisft.NewSearchQuery("default").WithQuery("*all*").Build()).Err(); err != nil {
+	if res, err := ft.Do(redisft.NewSearchQuery("default").WithQuery("*all*").Build()); err != nil || res.Err() != nil {
 		panic(err)
 	}
 }
