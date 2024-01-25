@@ -8,10 +8,10 @@ import (
 
 type client struct {
 	conn  *redis.Client
-	query *query
+	query *builder
 }
 
-func (c client) Do(query query) (*redis.Cmd, error) {
+func (c client) Do(query builder) (*redis.Cmd, error) {
 	ctx := context.Background()
 
 	c.query = &query

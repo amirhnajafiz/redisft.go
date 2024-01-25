@@ -4,7 +4,7 @@ import "github.com/redis/go-redis/v9"
 
 // Client is the main interface of redisft.go SDK.
 type Client interface {
-	Do(query query) (*redis.Cmd, error)
+	Do(query builder) (*redis.Cmd, error)
 	GetClient() *redis.Client
 }
 
