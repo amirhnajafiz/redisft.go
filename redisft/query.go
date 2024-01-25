@@ -2,14 +2,17 @@ package redisft
 
 type CreateQuery interface {
 	AddField(field, fieldType string) CreateQuery
+	Build() query
 }
 
 type AddQuery interface {
 	AddValue(key, value string) AddQuery
+	Build() query
 }
 
 type SearchQuery interface {
 	WithQuery(query string) SearchQuery
+	Build() query
 }
 
 func NewCreateQuery(index string) CreateQuery {
@@ -36,6 +39,10 @@ func newQuery(index string, queryType QueryType) query {
 		queryType: queryType,
 		params:    make(map[string]string),
 	}
+}
+
+func (q query) Build() query {
+	return q
 }
 
 func (q query) AddField(field, fieldType string) CreateQuery {
