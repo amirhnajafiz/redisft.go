@@ -1,7 +1,7 @@
 package redisft
 
 type CreateQuery interface {
-	AddField(field, fieldType string) CreateQuery
+	AddField(field string, fieldType FTType) CreateQuery
 	Build() builder
 }
 

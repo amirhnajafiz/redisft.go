@@ -18,8 +18,8 @@ func (q builder) Build() builder {
 	return q
 }
 
-func (q builder) AddField(field, fieldType string) CreateQuery {
-	q.withParam(field, fieldType)
+func (q builder) AddField(field string, fieldType FTType) CreateQuery {
+	q.withParam(field, string(fieldType))
 
 	return q
 }
