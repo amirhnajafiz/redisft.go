@@ -16,12 +16,16 @@ func (c client) Do(query query) (*redis.Cmd, error) {
 
 	c.query = &query
 
+	if len(c.query.index) == 0 {
+		return nil, ErrEmptyIndex
+	}
+
 	switch query.queryType {
-	case QuerySearch:
+	case querySearch:
 		return c.search(ctx)
-	case QueryCreate:
+	case queryCreate:
 		return c.create(ctx)
-	case QueryAdd:
+	case queryAdd:
 		return c.add(ctx)
 	}
 

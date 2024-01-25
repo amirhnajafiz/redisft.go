@@ -16,15 +16,15 @@ type SearchQuery interface {
 }
 
 func NewCreateQuery(index string) CreateQuery {
-	return newQuery(index, QueryCreate)
+	return newQuery(index, queryCreate)
 }
 
 func NewSearchQuery(index string) SearchQuery {
-	return newQuery(index, QuerySearch)
+	return newQuery(index, querySearch)
 }
 
 func NewAddQuery(index string) AddQuery {
-	return newQuery(index, QueryAdd)
+	return newQuery(index, queryAdd)
 }
 
 type query struct {
