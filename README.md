@@ -36,3 +36,65 @@ FT.SEARCH my_index "@title:(Redis)"
 ```
 
 A list of the available commands can be found at [query syntax docs](https://redis.io/docs/interact/search-and-query/advanced-concepts/query_syntax/).
+
+## redisft.go
+
+With this software development kit (SDK), you can utilize fuzzy search capabilities alongside the features provided by the go-redis SDK.
+
+### connection
+
+The RedisFT tool provides two options for establishing a Redis connection to utilize its fuzzy search feature. You can either utilize an existing connection or initiate a new connection.
+
+```go
+rdb := redis.NewClient(&redis.Options{
+    Addr:     "localhost:6379",
+    Password: "", // no password set
+    DB:       0,  // use default DB
+})
+
+// use existing
+ft := redisft.NewClientFromExistingConnection(rdb)
+
+// create new connection
+ft = redisft.NewClient(&redis.Options{
+    Addr:     "localhost:6379",
+    Password: "", // no password set
+    DB:       0,  // use default DB
+})
+```
+
+### schema
+
+Create a new schema:
+
+```go
+res, err := ft.Do(
+    redisft.NewCreateQuery("default").
+    AddField("cindex", redisft.FTText).
+    Build(), 
+)
+```
+
+### add
+
+Add items to an index:
+
+```go
+res, err := ft.Do(
+    redisft.NewAddQuery("default").
+    AddValue("cindex", "value").
+    Build(),
+)
+```
+
+### search
+
+Search in an index:
+
+```go
+res, err := ft.Do(
+    redisft.NewSearchQuery("default").
+    WithQuery("*all*").
+    Build(),
+)
+```
