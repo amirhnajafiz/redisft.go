@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://skillicons.dev">
-    <img width="100" src="https://skillicons.dev/icons?i=redis" />
+    <img width="200" src="https://skillicons.dev/icons?i=redis" />
   </a>
 </p>
 
